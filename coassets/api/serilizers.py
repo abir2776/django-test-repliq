@@ -9,12 +9,17 @@ class CompanySerializer(serializers.ModelSerializer):
         model = Company
         exclude = ('user',)
 
+
+class DeviceSerializer(serializers.ModelSerializer):
+    employee = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Device
+        exclude = ('check_out','returned')
+
+
 class EmployeeSerializer(serializers.ModelSerializer):
+    devices = DeviceSerializer(read_only=True)
     class Meta:
         model = Employee
         fields = '__all__'
 
-class DeviceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Device
-        exclude = ('check_out','returned')
