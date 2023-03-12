@@ -22,14 +22,16 @@ class Employee(models.Model):
     
 class Device(models.Model):
     class Type(models.TextChoices):
-        pending = 'phone', _('Phone')
-        rejected = 'tablet', _('Tablet')
-        request_change = 'laptop', _('Laptop')
+        phone = 'phone', _('Phone')
+        tablet = 'tablet', _('Tablet')
+        laptop = 'laptop', _('Laptop')
     brand = models.CharField(max_length=20)
     type = models.CharField(max_length=10, choices=Type.choices)
-    employee = models.ForeignKey(Employee,on_delete=models.CASCADE,related_name='employee')
+    employee = models.ForeignKey(Employee,on_delete=models.CASCADE,related_name='employee',blank=True)
     check_out = models.DateTimeField(auto_now_add=True)
     returned = models.DateTimeField(auto_now=True)
+    assigned = models.BooleanField(default=False)
+    log = models.TextField(blank=True, max_length=500)
 
     def __str__(self):
         return self.type
