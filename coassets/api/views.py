@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 #To show all company list and add new company
 class CompanyListAv(APIView):
     def get(self,request):
-        companys = Company.objects.all()
-        serializer = CompanySerializer(companys,many=True)
+        companies = Company.objects.all()
+        serializer = CompanySerializer(companies,many=True)
         return Response(serializer.data)
 
     def post(self,request):
